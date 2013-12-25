@@ -39,9 +39,14 @@ expr:			    /* règles de grammaire pour les expressions */
   | expr DIVIDE expr        { Expr.Div($1,$3) }
 ;
 
-com:
+/* Une commande qui n'est pas une séquence. */
+com_notseq:
   | SKIP                    { Com.Skip }
-  | com SEMICOLON com       { Com.Seq($1,$3) }
   | PRINT VAR               { Com.Print($2) }
   | VAR AFF expr            { Com.Aff($1,$3) }
 ;
+com:
+  | SKIP                    { Com.Skip }
+  | com_notseq SEMICOLON com { Com.Seq($1,$3) }
+  | PRINT VAR               { Com.Print($2) }
+  | VAR AFF expr            { Com.Aff($1,$3) }

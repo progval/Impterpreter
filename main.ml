@@ -1,10 +1,7 @@
 
 let compile e =
   begin
-    print_string (Com.string_of_com e);
-    print_newline();
     ignore (Com.exec (Memory.new_mem ()) e);
-    print_newline()
   end
 
 (* stdin désigne l'entrée standard (le clavier) *)
