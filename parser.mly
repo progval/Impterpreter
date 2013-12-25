@@ -48,5 +48,6 @@ com_notseq:
 com:
   | SKIP                    { Com.Skip }
   | com_notseq SEMICOLON com { Com.Seq($1,$3) }
+  | com_notseq SEMICOLON    { Com.Seq($1,Com.Skip) }
   | PRINT VAR               { Com.Print($2) }
   | VAR AFF expr            { Com.Aff($1,$3) }
