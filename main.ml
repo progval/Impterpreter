@@ -1,10 +1,9 @@
-open Expr
 
 let compile e =
   begin
-    affiche_expr e;
+    print_string (Com.string_of_com e);
     print_newline();
-    print_int (eval (Memory.new_mem ()) e);
+    ignore (Com.exec (Memory.new_mem ()) e);
     print_newline()
   end
 
@@ -19,7 +18,7 @@ let lexbuf = Lexing.from_channel stdin
 let parse () = Parser.main Lexer.token lexbuf
 
 (* la fonction que l'on lance ci-dessous *)
-let calc () =
+let run () =
   try
       let result = parse () in
       (* Expr.affiche_expr result; print_newline (); flush stdout *)
@@ -27,4 +26,4 @@ let calc () =
   with _ -> (print_string "erreur de saisie\n")
 ;;
 
-let _ = calc()
+let _ = run()

@@ -10,6 +10,7 @@ open Expr   (* rappel: dans expr.ml:
 %token <int> INT       /* le lexème INT a un attribut entier */
 %token <string> VAR
 %token PLUS MINUS TIMES DIVIDE
+%token SKIP SEMICOLON PRINT AFF
 %token LPAREN RPAREN
 %token EOL             /* retour à la ligne */
 
@@ -19,22 +20,28 @@ open Expr   (* rappel: dans expr.ml:
 %left DIVIDE            /* associativité gauche, précédence maximale */
 
 %start main             /* "start" signale le point d'entrée: c'est ici main */
-%type <Expr.expr> main     /* on _doit_ donner le type du point d'entrée */
+%type <Com.com> main     /* on _doit_ donner le type du point d'entrée */
 
 %%
     /* --- début des règles de grammaire --- */
                             /* à droite, les valeurs associées */
 main:                       /* le point d'entrée */
-    expr EOL                { $1 }  /* on veut reconnaître une expression */
+    com EOL                { $1 }  /* on veut reconnaître une expression */
 ;
 expr:			    /* règles de grammaire pour les expressions */
-  | INT                     { Const $1 }
-  | VAR                     { Var $1 }
+  | INT                     { Expr.Const $1 }
+  | VAR                     { Expr.Var $1 }
   | LPAREN expr RPAREN      { $2 } /* on récupère le deuxième élément */
-  | expr PLUS expr          { Add($1,$3) }
-  | expr MINUS expr         { Sub($1,$3) }
-  | MINUS expr              { Sub(Const(0), $2) }
-  | expr TIMES expr         { Mul($1,$3) }
-  | expr DIVIDE expr        { Div($1,$3) }
+  | expr PLUS expr          { Expr.Add($1,$3) }
+  | expr MINUS expr         { Expr.Sub($1,$3) }
+  | MINUS expr              { Expr.Sub(Const(0), $2) }
+  | expr TIMES expr         { Expr.Mul($1,$3) }
+  | expr DIVIDE expr        { Expr.Div($1,$3) }
 ;
 
+com:
+  | SKIP                    { Com.Skip }
+  | com SEMICOLON com       { Com.Seq($1,$3) }
+  | PRINT VAR               { Com.Print($2) }
+  | VAR AFF expr            { Com.Aff($1,$3) }
+;

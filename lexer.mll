@@ -10,12 +10,21 @@ rule token = parse    (* la "fonction" aussi s'appelle token .. *)
                                       associé au tampon où sont
                                       lus les caractères *)
   | '\n'            { EOL }
+
+  (* Arithmetic *)
   | '+'             { PLUS }
   | '-'             { MINUS }
   | '*'             { TIMES }
   | '/'             { DIVIDE }
   | '('             { LPAREN }
   | ')'             { RPAREN }
+
+  (* Instructions *)
+  | "skip"          { SKIP }
+  | ";"             { SEMICOLON }
+  | "print"         { PRINT }
+  | ":="            { AFF }
+
   | ['0'-'9']+ as s { INT (int_of_string s) }
   | ['A'-'Z']+ as s { VAR s }
   | eof             { raise Eof } 

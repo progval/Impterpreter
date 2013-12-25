@@ -10,23 +10,17 @@ type expr =
   | Div of expr*expr
 
 (* fonction d'affichage *)
-let rec affiche_expr e =
-  let aff_aux s a b = 
-      begin
-	print_string s;
-	affiche_expr a;
-	print_string ", ";
-	affiche_expr b;
-	print_string ")"
-      end
+let rec string_of_expr e =
+    let aux s a b =
+        String.concat "" [s; string_of_expr a; ", "; string_of_expr b; ")"]
   in
   match e with
-  | Const k -> print_int k
-  | Var s -> print_string (String.concat "" ["Var("; s; ")"])
-  | Add(e1,e2) -> aff_aux "Add(" e1 e2
-  | Sub(e1,e2) -> aff_aux "Sub(" e1 e2
-  | Mul(e1,e2) -> aff_aux "Mul(" e1 e2
-  | Div(e1,e2) -> aff_aux "Div(" e1 e2
+  | Const k -> string_of_int k
+  | Var s -> s
+  | Add(e1,e2) -> aux "Add(" e1 e2
+  | Sub(e1,e2) -> aux "Sub(" e1 e2
+  | Mul(e1,e2) -> aux "Mul(" e1 e2
+  | Div(e1,e2) -> aux "Div(" e1 e2
 
 (* sémantique opérationnelle à grands pas *)
 let rec eval mem = function
