@@ -4,5 +4,8 @@ all:
 byte: 
 	ocamlbuild -yaccflag -v main.byte
 
+tests: all
+	./tests/run.sh
+
 clean: 
 	ocamlbuild -clean
