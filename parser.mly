@@ -74,8 +74,7 @@ com_paired_if:
 com_unpaired_if:
   | WHILE assertion DO com_unpaired_if { Com.While($2,$4) }
   | IF assertion THEN com_paired_if ELSE com_unpaired_if  { Com.IfTE($2,$4,$6) }
-  | IF assertion THEN com_base { Com.IfTE($2,$4,Com.Skip) }
-  | IF assertion THEN com_unpaired_if { Com.IfTE($2,$4,Com.Skip) }
+  | IF assertion THEN com_if { Com.IfTE($2,$4,Com.Skip) }
 ;
 com_if:
   | com_paired_if           { $1 }
