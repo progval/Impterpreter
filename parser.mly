@@ -60,8 +60,6 @@ com_base:
   | PRINT VAR               { Com.Print($2) }
   | VAR AFF expr            { Com.Aff($1,$3) }
   | LPAREN com RPAREN       { $2 }
-  | WHILE assertion DO com_base { Com.While($2,$4) }
-  | WHILE assertion DO com_if { Com.While($2,$4) }
 ;
 com_seq:
   | com_if SEMICOLON com    { Com.Seq($1,$3) }
@@ -70,9 +68,11 @@ com_seq:
 
 com_paired_if:
   | com_base                { $1 }
+  | WHILE assertion DO com_paired_if { Com.While($2,$4) }
   | IF assertion THEN com_paired_if ELSE com_paired_if  { Com.IfTE($2,$4,$6) }
 ;
 com_unpaired_if:
+  | WHILE assertion DO com_unpaired_if { Com.While($2,$4) }
   | IF assertion THEN com_paired_if ELSE com_unpaired_if  { Com.IfTE($2,$4,$6) }
   | IF assertion THEN com_base { Com.IfTE($2,$4,Com.Skip) }
   | IF assertion THEN com_unpaired_if { Com.IfTE($2,$4,Com.Skip) }
