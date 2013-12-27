@@ -18,9 +18,9 @@ let rec string_of_assertion a =
     match a with
     | True -> "True"
     | False -> "False"
-    | LowerThan(e1, e2) -> aux2 "LowerThan" e1 e2
-    | GreaterThan(e1, e2) -> aux2 "GreaterThan" e1 e2
-    | Equals(e1, e2) -> aux2 "Equals" e1 e2
+    | LowerThan(e1, e2) -> aux2 "LowerThan(" e1 e2
+    | GreaterThan(e1, e2) -> aux2 "GreaterThan(" e1 e2
+    | Equals(e1, e2) -> aux2 "Equals(" e1 e2
     | Not(e) -> String.concat "" ["Not("; string_of_assertion e; ")"]
     | And(a1, a2) -> aux1 "And(" a1 a2
     | Or(a1, a2) -> aux1 "Or(" a1 a2
