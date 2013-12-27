@@ -14,7 +14,7 @@ open Expr   (* rappel: dans expr.ml:
 %token SKIP SEMICOLON PRINT AFF
 %token IF THEN ELSE
 %token LPAREN RPAREN
-%token EOL             /* retour à la ligne */
+%token EOF
 
 %nonassoc LOWERTHAN GREATERTHAN EQUALS
 
@@ -31,7 +31,7 @@ open Expr   (* rappel: dans expr.ml:
     /* --- début des règles de grammaire --- */
                             /* à droite, les valeurs associées */
 main:                       /* le point d'entrée */
-    com EOL                { $1 }  /* on veut reconnaître une expression */
+    com EOF                 { $1 }  /* on veut reconnaître une expression */
 ;
 expr:			    /* règles de grammaire pour les expressions */
   | INT                     { Expr.Const $1 }

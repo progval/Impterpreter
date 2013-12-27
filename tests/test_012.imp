@@ -1,0 +1,4 @@
+print VAR;
+VAR := 6;
+print VAR;
+
