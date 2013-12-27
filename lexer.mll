@@ -19,12 +19,26 @@ rule token = parse    (* la "fonction" aussi s'appelle token .. *)
   | '('             { LPAREN }
   | ')'             { RPAREN }
 
+  (* Boolean expressions *)
+  | "true"          { TRUE }
+  | "false"         { FALSE }
+  | '<'             { LOWERTHAN }
+  | '>'             { GREATERTHAN }
+  | '='             { EQUALS }
+  | '~'             { NOT }
+  | "and"           { AND }
+  | "or"            { OR }
+
   (* Instructions *)
   | "skip"          { SKIP }
   | ";"             { SEMICOLON }
   | "print"         { PRINT }
   | ":="            { AFF }
+  | "if"            { IF }
+  | "then"          { THEN }
+  | "else"          { ELSE }
 
   | ['0'-'9']+ as s { INT (int_of_string s) }
   | ['A'-'Z']+ as s { VAR s }
+
   | eof             { raise Eof } 

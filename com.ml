@@ -3,6 +3,7 @@ type com =
   | Seq of com*com
   | Print of string
   | Aff of string * Expr.expr
+  | IfTE of Assertion.assertion*com*com
 
 let rec string_of_com c =
   match c with
@@ -10,6 +11,8 @@ let rec string_of_com c =
   | Seq(e1, e2) -> String.concat "" ["Seq("; string_of_com e1; ", "; string_of_com e2; ")"]
   | Print(s) -> String.concat "" ["Print("; s; ")"]
   | Aff(s, e) -> String.concat "" ["Aff("; s; ", "; Expr.string_of_expr e; ")"]
+  | IfTE(b, c1, c2) -> String.concat "" ["IfTE("; Assertion.string_of_assertion b;
+                       ", "; string_of_com c1; ", "; string_of_com c2; ")"]
 
 let rec step mem = function
   | Skip -> (mem, Skip)
@@ -19,6 +22,7 @@ let rec step mem = function
                    )
   | Print(s) -> print_int (Memory.read mem s); print_string "\n"; (mem, Skip)
   | Aff(s, e) -> (Memory.write mem s (Expr.eval mem e), Skip)
+  | IfTE(b, c1, c2) -> (mem, if (Assertion.eval mem b) then c1 else c2)
 
 let rec exec mem = function
   | Skip -> mem

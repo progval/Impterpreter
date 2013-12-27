@@ -11,8 +11,8 @@ type expr =
 
 (* fonction d'affichage *)
 let rec string_of_expr e =
-    let aux s a b =
-        String.concat "" [s; string_of_expr a; ", "; string_of_expr b; ")"]
+  let aux s a b =
+      String.concat "" [s; string_of_expr a; ", "; string_of_expr b; ")"]
   in
   match e with
   | Const k -> string_of_int k

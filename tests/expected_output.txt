@@ -8,3 +8,15 @@ tests/test_011.imp
 ===
 0
 6
+
+tests/test_020.imp
+===
+6
+
+tests/test_021.imp
+===
+0
+
+tests/test_022.imp
+===
+erreur de saisie
