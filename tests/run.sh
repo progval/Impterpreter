@@ -12,3 +12,4 @@ diff -u _build/test_output.txt tests/expected_output.txt > _build/tests.diff
 RETVAL=$?
 [ $RETVAL -eq 0 ] && echo "Succès"
 [ $RETVAL -ne 0 ] && echo "Échec (voir _build/tests.diff)"
+exit $RETVAL
