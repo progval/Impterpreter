@@ -13,6 +13,7 @@ open Expr   (* rappel: dans expr.ml:
 %token PLUS MINUS TIMES DIVIDE
 %token SKIP SEMICOLON PRINT AFF
 %token IF THEN ELSE
+%token WHILE DO
 %token LPAREN RPAREN
 %token EOF
 
@@ -59,6 +60,8 @@ com_base:
   | PRINT VAR               { Com.Print($2) }
   | VAR AFF expr            { Com.Aff($1,$3) }
   | LPAREN com RPAREN       { $2 }
+  | WHILE assertion DO com_base { Com.While($2,$4) }
+  | WHILE assertion DO com_if { Com.While($2,$4) }
 ;
 com_seq:
   | com_if SEMICOLON com    { Com.Seq($1,$3) }

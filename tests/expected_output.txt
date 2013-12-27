@@ -14,6 +14,12 @@ tests/test_012.imp
 0
 6
 
+tests/test_013.imp
+===
+0
+6
+8
+
 tests/test_020.imp
 ===
 6
@@ -25,3 +31,7 @@ tests/test_021.imp
 tests/test_022.imp
 ===
 erreur de saisie
+
+tests/test_030.imp
+===
+120

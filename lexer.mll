@@ -35,6 +35,8 @@ rule token = parse    (* la "fonction" aussi s'appelle token .. *)
   | "if"            { IF }
   | "then"          { THEN }
   | "else"          { ELSE }
+  | "while"         { WHILE }
+  | "do"            { DO }
 
   | ['0'-'9']+ as s { INT (int_of_string s) }
   | ['A'-'Z']+ as s { VAR s }
