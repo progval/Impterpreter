@@ -34,6 +34,7 @@ let rec expr_step mem = function
   | RawCall(s, e1, e2) -> RawCall(s, expr_step mem e1, e2)
 
   | Call(mem, Return(Const i)) | Call(mem, Seq(Return(Const i), _)) -> Const i
+  | Call(mem, Skip) -> Const 0
   | Call(mem, c)-> let (mem, c) = com_step mem c in Call(mem, c)
   
 
