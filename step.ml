@@ -5,6 +5,7 @@ open Function
 
 let rec expr_step mem = function
   | Const k -> Const k
+  | PlaceholderVar -> Const 0
   | Var(s) -> Const (Memory.read mem s)
 
   | Add(Const i1, Const i2) -> Const(i1+i2)

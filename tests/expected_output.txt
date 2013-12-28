@@ -49,3 +49,13 @@ tests/test_041.imp
 tests/test_042.imp
 ===
 120
+
+tests/test_050.imp
+===
+Function foo expects 2 arguments, but gets 1
+Function foo expects 2 arguments, but gets 0
+Function bar expects 1 arguments, but gets 2
+Function bar expects 1 arguments, but gets 0
+Function baz expects 0 arguments, but gets 2
+Function baz expects 0 arguments, but gets 1
+Function qux is called but is not defined

@@ -32,10 +32,12 @@ let write mem addr v =
     in let Memory(variables, functions) = mem
     in Memory(aux variables, functions)
 
-let get_function mem name =
-    let rec aux = function
+let rec get_function_in_list functions name =
+    match functions with
     | [] -> raise UndefinedFunction
-    | ((name2, Function.Function(a1, a2, c)) :: functions) when name=name2 -> (a1, a2, c)
-    | (_ :: functions) -> aux functions
-    in let Memory(variables, functions) = mem
-    in aux functions
+    | ((name2, Function.Function(a1, a2, c)) :: _) when name=name2 -> (a1, a2, c)
+    | (_ :: functions2) -> get_function_in_list functions2 name
+
+let get_function mem name =
+    let Memory(variables, functions) = mem
+    in get_function_in_list functions name

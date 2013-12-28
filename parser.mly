@@ -45,6 +45,8 @@ expr:			    /* règles de grammaire pour les expressions */
   | MINUS expr              { Expr.Sub(Const(0), $2) }
   | expr TIMES expr         { Expr.Mul($1,$3) }
   | expr DIVIDE expr        { Expr.Div($1,$3) }
+  | FUN LPAREN RPAREN       { Expr.RawCall($1,Expr.PlaceholderVar,Expr.PlaceholderVar) }
+  | FUN LPAREN expr RPAREN  { Expr.RawCall($1,$3,Expr.PlaceholderVar) }
   | FUN LPAREN expr COMMA expr RPAREN { Expr.RawCall($1,$3,$5) }
 ;
 
@@ -87,6 +89,8 @@ com_if:
 
 com_function:
   | FUNCTION FUN LPAREN VAR COMMA VAR RPAREN EQUALS com_body DOT { ($2, Function.Function($4,$6,$9)) }
+  | FUNCTION FUN LPAREN VAR RPAREN EQUALS com_body DOT { ($2, Function.Function($4,"",$7)) }
+  | FUNCTION FUN LPAREN RPAREN EQUALS com_body DOT { ($2, Function.Function("","",$6)) }
 ;
 
 com_body:
