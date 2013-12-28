@@ -1,12 +1,12 @@
-type assertion =
+type 'com assertion =
     | True
     | False
-    | LowerThan of Expr.expr*Expr.expr
-    | GreaterThan of Expr.expr*Expr.expr
-    | Equals of Expr.expr*Expr.expr
-    | Not of assertion
-    | And of assertion*assertion
-    | Or of assertion*assertion
+    | LowerThan of 'com Expr.expr*'com Expr.expr
+    | GreaterThan of 'com Expr.expr*'com Expr.expr
+    | Equals of 'com Expr.expr*'com Expr.expr
+    | Not of 'com assertion
+    | And of 'com assertion*'com assertion
+    | Or of 'com assertion*'com assertion
 
 let rec string_of_assertion a =
     let aux1 s a b =
@@ -25,12 +25,6 @@ let rec string_of_assertion a =
     | And(a1, a2) -> aux1 "And(" a1 a2
     | Or(a1, a2) -> aux1 "Or(" a1 a2
 
-let rec eval mem = function
-    | True -> true
-    | False -> false
-    | LowerThan(e1, e2) -> Expr.eval mem e1 < Expr.eval mem e2
-    | GreaterThan(e1, e2) -> Expr.eval mem e1 > Expr.eval mem e2
-    | Equals(e1, e2) -> Expr.eval mem e1 = Expr.eval mem e2
-    | Not(a) -> not (eval mem a)
-    | And(a1, a2) -> (eval mem a1) && (eval mem a2)
-    | Or(a1, a2) -> (eval mem a1) || (eval mem a2)
+let assertion_of_bool = function
+    | true -> True
+    | false -> False

@@ -1,7 +1,7 @@
 
-let compile e =
+let compile functions com =
   begin
-    ignore (Com.exec (Memory.new_mem ()) e);
+    ignore (Step.exec (Memory.new_mem functions) com);
   end
 
 (* stdin désigne l'entrée standard (le clavier) *)
@@ -17,10 +17,12 @@ let parse () = Parser.main Lexer.token lexbuf
 (* la fonction que l'on lance ci-dessous *)
 let run () =
   try
-      let result = parse () in
+      let (functions, com) = parse () in
       (* Expr.affiche_expr result; print_newline (); flush stdout *)
-	compile result; flush stdout
-  with _ -> (print_string "erreur de saisie\n")
+    compile functions com; flush stdout
+  with
+  | Parsing.Parse_error -> (print_string "erreur de saisie\n")
+  | e -> print_string (String.concat "" ["Erreur : "; Printexc.to_string e; "\n"])
 ;;
 
 let _ = run()

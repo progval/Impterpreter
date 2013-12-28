@@ -1,0 +1,6 @@
+function foo(A, B) =
+    return A*B-1
+.
+
+C := foo(6, 7);
+print C

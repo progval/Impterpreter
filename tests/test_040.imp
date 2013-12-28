@@ -1,0 +1,8 @@
+function foo(A, B) =
+    return 5
+.
+
+C := foo(6, 7);
+print A;
+print B;
+print C

@@ -35,3 +35,13 @@ erreur de saisie
 tests/test_030.imp
 ===
 120
+
+tests/test_040.imp
+===
+0
+0
+5
+
+tests/test_041.imp
+===
+41
