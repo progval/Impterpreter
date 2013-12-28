@@ -45,3 +45,7 @@ tests/test_040.imp
 tests/test_041.imp
 ===
 41
+
+tests/test_042.imp
+===
+120

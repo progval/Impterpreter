@@ -1,6 +1,6 @@
 rm -f _build/test_output.txt
 
-for filename in $(ls tests/*.imp)
+for filename in $(ls tests/test_*.imp)
 do
     echo "
 $filename

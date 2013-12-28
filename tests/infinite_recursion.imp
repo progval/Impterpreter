@@ -1,0 +1,6 @@
+function foo(A, B) =
+    print A;
+    return foo(A+1, B)
+.
+
+C := foo(1, 2)

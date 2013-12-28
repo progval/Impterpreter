@@ -1,0 +1,10 @@
+function fact(N, ACC) =
+    print ACC;
+    if N = 1 then
+        return ACC
+    else
+        return fact(N-1, ACC*N)
+.
+
+A := fact(50, 1);
+print A
