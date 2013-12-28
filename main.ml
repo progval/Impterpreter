@@ -20,7 +20,9 @@ let run () =
       let (functions, com) = parse () in
       (* Expr.affiche_expr result; print_newline (); flush stdout *)
     compile functions com; flush stdout
-  with _ -> (print_string "erreur de saisie\n")
+  with
+  | Parsing.Parse_error -> (print_string "erreur de saisie\n")
+  | e -> print_string (String.concat "" ["Erreur : "; Printexc.to_string e; "\n"])
 ;;
 
 let _ = run()
