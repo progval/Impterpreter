@@ -1,0 +1,7 @@
+N := 5;
+K := 1;
+while N > 1 do (
+    K := K*N;
+    N := N -1
+);
+print K
