@@ -85,7 +85,8 @@ and com_step mem = function
   | While(Assertion.True, b2, c) -> (mem, Seq(c, While(b2, b2, c)))
   | While(Assertion.False, b2, c) -> (mem, Skip)
   | While(b, b2, c) -> (mem, While(assertion_step mem b, b2, c))
-  | Return(e) -> failwith "Return outside a function."
+  | Return(Const i) -> failwith "Return outside a function." (* If "return n" (with n: integer) has not been consumed by com_step it means we are not in a function. *)
+  | Return(e) -> (mem, Return (expr_step mem e))
 
 let rec exec mem = function
   | Skip -> mem

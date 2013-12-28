@@ -63,6 +63,7 @@ com_base:
   | PRINT VAR               { Com.Print($2) }
   | VAR AFF expr            { Com.Aff($1,$3) }
   | LPAREN com_body RPAREN  { $2 }
+  | RETURN expr             { Com.Return($2) }
 ;
 com_seq:
   | com_if SEMICOLON com_body { Com.Seq($1,$3) }
