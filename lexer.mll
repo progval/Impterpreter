@@ -38,7 +38,14 @@ rule token = parse    (* la "fonction" aussi s'appelle token .. *)
   | "while"         { WHILE }
   | "do"            { DO }
 
+  (* Function *)
+  | "function"      { FUNCTION }
+  | ","             { COMMA }
+  | "return"        { RETURN }
+  | "."             { DOT }
+
   | ['0'-'9']+ as s { INT (int_of_string s) }
   | ['A'-'Z']+ as s { VAR s }
+  | ['a'-'z']+ as s { FUN s }
 
   | eof             { EOF }
