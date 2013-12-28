@@ -1,0 +1,6 @@
+function foo(BLI, BLA) =
+    skip
+.
+
+A := foo(1, 2);
+print A

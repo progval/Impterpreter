@@ -54,6 +54,16 @@ tests/test_043.imp
 ===
 0
 
+tests/test_044.imp
+===
+4
+6
+0
+35
+0
+35
+0
+
 tests/test_050.imp
 ===
 Function foo expects 2 arguments, but gets 1

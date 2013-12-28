@@ -1,0 +1,23 @@
+function foo() =
+    E := 4;
+    print E;
+    return 5
+.
+
+function bar() =
+    F := 6;
+    print F;
+    return 7
+.
+
+function baz(A, B) =
+    print E;
+    C := A * B;
+    print C;
+    return C
+.
+
+D := baz(foo(), bar());
+print C;
+print D;
+print E;
