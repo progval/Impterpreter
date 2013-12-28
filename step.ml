@@ -90,8 +90,6 @@ and com_step mem = function
   | Return(RawCall(s, Const i1, Const i2)) ->
           let (a1, a2, c) = Memory.get_function mem s in
           (Memory.write (Memory.write (Memory.zero_mem mem) a1 i1) a2 i2, c)
-  | Return(RawCall(s, Const i1, e2)) -> (mem, Return(RawCall(s, Const i1, expr_step mem e2)))
-  | Return(RawCall(s, e1, e2)) -> (mem, Return(RawCall(s, expr_step mem e1, e2)))
 
   | Return(Const i) -> failwith "Return outside a function." (* If "return n" (with n: integer) has not been consumed by com_step it means we are not in a function. *)
   | Return(e) -> (mem, Return (expr_step mem e))
