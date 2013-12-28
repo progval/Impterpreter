@@ -76,7 +76,7 @@ and com_step mem = function
                    | (mem2, Skip) -> (mem2, c2)
                    | (mem2, c1) -> (mem2, Seq(c1, c2))
                    )
-  | Print(s) -> print_int (Memory.read mem s); print_string "\n"; (mem, Skip)
+  | Print(s) -> print_int (Memory.read mem s); print_string "\n"; flush stdout; (mem, Skip)
   | Aff(s, Expr.Const i) -> (Memory.write mem s i, Skip)
   | Aff(s, e) -> (mem, Aff(s, expr_step mem e))
   | IfTE(Assertion.True, c, _) -> (mem, c)
