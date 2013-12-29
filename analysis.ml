@@ -1,12 +1,16 @@
 
+(* Returns the number of arguments of a function *)
 let function_num_args = function (a1, a2, s) ->
     if a1 = "" then 0 else (if a2 = "" then 1 else 2)
+(* Returns the number of arguments of a function call *)
 let call_num_args = function
     | Expr.RawCall(s, Expr.PlaceholderVar, Expr.PlaceholderVar) -> 0
     | Expr.RawCall(s, _, Expr.PlaceholderVar) -> 1
     | Expr.RawCall(s, _, _) -> 2
     | _ -> failwith "call_num_args should only be called on a RawCall node."
 
+(* Takes the list of functions and an expression, and checks if all
+ * functions calls have the right number of arguments. *)
 let rec check_function_calls_in_expr functions = function
     | Expr.Const k -> []
     | Expr.Var s -> []
@@ -27,6 +31,8 @@ let rec check_function_calls_in_expr functions = function
         )
     | Expr.Call(_, _) -> failwith "Function calls should not have been converted at this point."
 
+(* Takes the list of functions and an assertion, and checks if all
+ * functions calls have the right number of arguments. *)
 let rec check_function_calls_in_assertion functions = function
     | Assertion.True | Assertion.False -> []
     | Assertion.LowerThan(e1, e2) | Assertion.GreaterThan(e1, e2) | Assertion.Equals(e1, e2) ->
@@ -38,6 +44,8 @@ let rec check_function_calls_in_assertion functions = function
     | Assertion.Not(a) -> check_function_calls_in_assertion functions a
 
 
+(* Takes the list of functions and a command, and checks if all
+ * functions calls have the right number of arguments. *)
 let rec check_function_calls_in_com functions = function
     | Com.Skip -> []
     | Com.Print s -> []
@@ -56,6 +64,7 @@ let rec check_function_calls_in_com functions = function
             else
                 failwith "While statement has started to be evaluated (or there is a bug in the grammar definition)."
 
+(* Check all function calls in a program. *)
 let check_function_calls functions com =
     (check_function_calls_in_com functions com) @
     (List.concat (List.map (function (_, Function.Function(_, _, c)) -> check_function_calls_in_com functions c) functions))

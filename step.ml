@@ -3,6 +3,7 @@ open Assertion
 open Com
 open Function
 
+(* Small-step semantic for arithmetical expressions *)
 let rec expr_step mem = function
   | Const k -> Const k
   | PlaceholderVar -> Const 0
@@ -38,7 +39,7 @@ let rec expr_step mem = function
   | Call(mem, c)-> let (mem, c) = com_step mem c in Call(mem, c)
   
 
-
+(* Small-step semantic for boolean expressions *)
 and assertion_step mem = function
     | True -> True
     | False -> False
@@ -72,6 +73,7 @@ and assertion_step mem = function
     | Or(True, a2) -> True
     | Or(a1, a2) -> Or(assertion_step mem a1, a2)
 
+(* Small-step semantic for commands. *)
 and com_step mem = function
   | Skip -> (mem, Skip)
   | Seq(c1, c2) -> (match (com_step mem c1) with
@@ -88,7 +90,7 @@ and com_step mem = function
   | While(Assertion.False, b2, c) -> (mem, Skip)
   | While(b, b2, c) -> (mem, While(assertion_step mem b, b2, c))
 
-  (* Tail recursion optimization *)
+  (* Tail call optimization *)
   | Return(RawCall(s, Const i1, Const i2)) ->
           let (a1, a2, c) = Memory.get_function mem s in
           (Memory.write (Memory.write (Memory.zero_mem mem) a1 i1) a2 i2, c)

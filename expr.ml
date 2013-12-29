@@ -3,7 +3,7 @@ exception DivisionByZero
 type 'com expr =
   | Const of int
   | Var of string
-  | PlaceholderVar
+  | PlaceholderVar (* Used in function calls with 0 or 1 argument. *)
   | Add of 'com expr*'com expr
   | Sub of 'com expr*'com expr
   | Mul of 'com expr*'com expr
@@ -11,7 +11,6 @@ type 'com expr =
   | RawCall of string * 'com expr * 'com expr
   | Call of 'com Memory.mem * 'com
 
-(* fonction d'affichage *)
 let rec string_of_expr e =
   let aux s a b =
       String.concat "" [s; string_of_expr a; ", "; string_of_expr b; ")"]
@@ -30,5 +29,3 @@ let rec string_of_expr e =
   | RawCall(s, e1, e2) -> String.concat "" ["Call("; s; ", ";
                        string_of_expr e1; ", "; string_of_expr e2; ")"]
   | Call(_, _) -> "<running function>"
-
-(* sémantique opérationnelle à petits pas *)
