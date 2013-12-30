@@ -7,5 +7,8 @@ byte:
 tests: all
 	./tests/run.sh
 
+run: all
+	./impterpreter
+
 clean: 
 	ocamlbuild -clean
