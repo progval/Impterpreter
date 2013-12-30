@@ -32,9 +32,17 @@ tests/test_022.imp
 ===
 erreur de saisie
 
+tests/test_023.imp
+===
+7
+
 tests/test_030.imp
 ===
 120
+
+tests/test_031.imp
+===
+1
 
 tests/test_040.imp
 ===

@@ -1,0 +1,4 @@
+K := 5;
+while K > 1 do
+    K := K-1;
+print K

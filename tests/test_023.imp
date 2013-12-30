@@ -1,0 +1,8 @@
+FOO := 5;
+BAR := 7;
+
+if true then
+    if false then
+        print FOO
+    else
+        print BAR
