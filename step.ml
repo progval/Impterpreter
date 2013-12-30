@@ -95,7 +95,7 @@ and com_step mem = function
           let (a1, a2, c) = Memory.get_function mem s in
           (Memory.write (Memory.write (Memory.zero_mem mem) a1 i1) a2 i2, c)
 
-  | Return(Const i) -> failwith "Return outside a function." (* If "return n" (with n: integer) has not been consumed by com_step it means we are not in a function. *)
+  | Return(Const i) -> raise ReturnOutsideFunction (* If "return n" (with n: integer) has not been consumed by com_step it means we are not in a function. *)
   | Return(e) -> (mem, Return (expr_step mem e))
 
 let rec exec mem = function

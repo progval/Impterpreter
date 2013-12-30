@@ -1,3 +1,5 @@
+exception ReturnOutsideFunction
+
 type com =
   | Skip
   | Seq of com*com

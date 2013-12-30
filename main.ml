@@ -16,6 +16,7 @@ let run () =
                 compile functions com; flush stdout
     with
     | Parsing.Parse_error -> (print_string "erreur de saisie\n")
+    | Com.ReturnOutsideFunction -> print_string "Erreur : instruction 'return' hors du corps d'une fonction\n"
     | e -> print_string (String.concat "" ["Erreur : "; Printexc.to_string e; "\n"])
 ;;
 

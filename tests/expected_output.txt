@@ -76,6 +76,10 @@ tests/test_045.imp
 ===
 erreur de saisie
 
+tests/test_046.imp
+===
+Erreur : instruction 'return' hors du corps d'une fonction
+
 tests/test_050.imp
 ===
 Function foo expects 2 arguments, but gets 1
